@@ -9,7 +9,7 @@ export const leaderboardSlice = createSlice({
     name: "leaderboard",
     initialState,
     reducers: {
-        setLeadboard: (state, action) => {
+        setLeaderBoard: (state, action) => {
             state.playerLeaderboard = action.payload;
           },
           setSelectedPlayer: (state, action) => {
@@ -21,5 +21,5 @@ export const leaderboardSlice = createSlice({
     }
 });
 
-export const { ssetLeadboard, setSelectedPlayer, addPlayer  } = leaderboardSlice.actions;
+export const { setLeaderBoard, setSelectedPlayer, addPlayer  } = leaderboardSlice.actions;
 export default leaderboardSlice.reducer;

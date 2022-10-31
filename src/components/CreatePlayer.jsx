@@ -1,9 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addPlayer } from '../store/leaderboardSlice'
 
 const CreatePlayer = () => {
 
-    const [playerName, setPlayerNmae] = useState("")
+    const [playerName, setPlayerNmae] = useState("");
+    const dispatch = useDispatch();
+    
 
     const playerNameHandler = (e) =>{
         setPlayerNmae(e.target.value)
@@ -13,7 +17,7 @@ const CreatePlayer = () => {
         e.preventDefault();
 
         const body = { playerName: playerName}
-
+        dispatch(addPlayer(body));
         const res = await axios.post("/api/players", body)
         console.log(res);
     }

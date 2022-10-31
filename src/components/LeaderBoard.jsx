@@ -1,22 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import {Route, Routes} from 'react-router-dom';
+import axios from 'axios';
 import {Link} from 'react-router-dom';
-import SinglePlayerInf from './SinglePlayerInf';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLeadboard } from '../store/leaderboardSlice';
+
 
 const LeaderBoard = () => {
 
-    const [players, setPlayers] = useState([]);
-
+    const [loading, setLoading] = useState();
+    const players = useSelector(
+        (state) => state.leaderboard.playerLeaderboard
+    );
+    const dispatch = useDispatch();
     const fetchingPlayers = async () => {
-    const playerData = await fetch("/api/players");
-    const json = await playerData.json();
-    setPlayers(json);
-    };
+        const players = await axios.get("/api/players")
+        console.log(players.data)
+        dispatch(setLeadboard(players.data))
+        setLoading(false)
+    }
 
     useEffect (() => {
         fetchingPlayers();
       }, []);
-
+	  if(loading) return "Wait"
+	  else
       return (
 		<div className="leaderboard-box">
 			<h1> Leaderboard </h1>
